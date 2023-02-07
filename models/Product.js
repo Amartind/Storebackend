@@ -10,6 +10,12 @@ class Product extends Model {}
 Product.init(
   {
     // define columns
+    id:{
+      type: DataTypes.INTEGER,
+      allowNull:false,
+      primaryKey: true,
+      autoIncrement: true
+    },
     product_name:{
       type: DataTypes.STRING,
       allowNull:false
@@ -19,6 +25,7 @@ Product.init(
       allowNull:false,
       validate:{
         //TODO: validate value is decimal
+        isDecimal: true
       }
     },
     stock:{
@@ -27,11 +34,17 @@ Product.init(
       defaultValue: 10,
       validate:{
         // TODO: validate value is numeric
+        isNumeric: true
       }
     },
-    catagoy_id:{
+    catagory_id:{
       type: DataTypes.INTERGER,
       // references catagory model id
+      references: {
+        model: 'Catagory',
+        key: 'id'
+      },
+      onDelete: 'CASCADE'
     }
   },
   {
@@ -40,9 +53,7 @@ Product.init(
     freezeTableName: true,
     underscored: true,
     modelName: 'product',
-  },{
-    sequelize,
-}
+  }
 );
 
 module.exports = Product;
