@@ -6,7 +6,7 @@ const sequelize = require('./config/connection');
 
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3002;
 
 const {Tag,ProductTag,Product,Category} = require("./models")
 

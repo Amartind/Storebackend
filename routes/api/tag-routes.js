@@ -48,38 +48,55 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
   // create a new tag
   Tag.create({
-    product_name:req.body.product_name,
-    price:req.body.price,
-    stock:req.body.price,
-    catagory_id:req.body.catagory_id
+    tag_name:req.body.tag_name
   })
-    .then((product) => {
-      // if there's product tags, we need to create pairings to bulk create in the ProductTag model
-      if (req.body.tagIds.length) {
-        const productTagIdArr = req.body.tagIds.map((tag_id) => {
-          return {
-            product_id: product.id,
-            tag_id,
-          };
-        });
-        return ProductTag.bulkCreate(productTagIdArr);
-      }
-      // if no product tags, just respond
-      res.status(200).json(product);
-    })
-    .then((productTagIds) => res.status(200).json(productTagIds))
-    .catch((err) => {
-      console.log(err);
-      res.status(400).json(err);
-    });
+  .then(newTag => {
+    res.status(201).json({ message: 'Tag created successfully', data: newTag });
+  })
+  .catch(error => {
+    res.status(500).json({ message: 'An error occurred while creating the tag', error });
+  });
 });
 
 router.put('/:id', (req, res) => {
   // update a tag's name by its `id` value
+  Tag.update(req.body, {
+    where: {
+      id: req.params.id,
+    },
+  })
+  .then((updatedTag) => {
+    res.status(200).json({
+      message: `Tag updated successfully`,
+      updatedTag
+    });
+  })
+  .catch((error) => {
+    res.status(500).json({
+      error: error.message
+    });
+  });
 });
 
 router.delete('/:id', (req, res) => {
   // delete on tag by its `id` value
+  Tag.destroy({
+    where:{
+        id:req.params.id
+    }
+}).then(data=>{
+    if(data){
+        return res.json(data)
+    } else {
+        return res.status(404).json({msg:"no such record"})
+    }
+}).catch(err=>{
+    console.log(err);
+    res.status(500).json({
+        msg:"an error occurred",
+        err:err
+    })
+})
 });
 
 module.exports = router;

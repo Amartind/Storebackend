@@ -49,7 +49,7 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
   // create a new category
   Category.create({
-    catagory_name:req.body.catagory_name
+    category_name:req.body.category_name
   }).then(data=>{
     res.status(201).json(data)
   }).catch(err=>{
@@ -64,13 +64,13 @@ router.post('/', (req, res) => {
 router.put('/:id', (req, res) => {
   // update a category by its `id` value
   Category.update({
-    catagory_name:req.body.catagory_name
+    category_name:req.body.category_name
   },{
     where:{
       id:req.params.id
     }
   }).then(data=>{
-    if(data[0]){
+    if(data){
         return res.json(data)
     } else {
         return res.status(404).json({msg:"No such Catagory"})
