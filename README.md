@@ -26,7 +26,13 @@ npm i
     
 Please first install all dependencies with "npm i" and then make a .env file for the needed information. run the schema.sql in the mysql terminal and then you seed with the node seeds/index.js command then you can then test the functionality of it through insomnia
 
+Video for SQL, seeding and putting server up
 
+https://user-images.githubusercontent.com/112136243/217408893-3e2a4029-087e-4349-aa53-6dfecd9b680d.mp4
+
+
+
+Video for Insomia
 
 https://user-images.githubusercontent.com/112136243/217407545-53bbd938-f099-4c3b-ae78-0ae708e2502a.mp4
 
